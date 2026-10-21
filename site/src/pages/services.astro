@@ -1,0 +1,104 @@
+---
+import Base from '../layouts/Base.astro';
+import { salon, menu, formatPrice } from '../data/salon';
+import { bookUrl } from '../lib/booking';
+---
+
+<Base title="Services & Prices" description="Full service menu and prices for Beautiology Salon in Henderson, NV — haircuts, color, highlights, balayage, blonding, Brazilian Blowout and color correction.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Menu & prices</span>
+      <h1 class="display">Our <em>services.</em></h1>
+      <p class="lede">Prices are starting points. Final pricing depends on length and density, and we’ll always confirm it during your consultation before we begin.</p>
+    </div>
+  </section>
+
+  <nav class="cats" aria-label="Service categories">
+    <div class="wrap cats__inner">
+      {menu.map((c) => <a href={`#${c.slug}`}>{c.name}</a>)}
+    </div>
+  </nav>
+
+  <div class="wrap menu">
+    {menu.map((c) => (
+      <section class="cat" id={c.slug}>
+        <header class="cat__head">
+          <h2>{c.name}</h2>
+          <p>{c.blurb}</p>
+        </header>
+        <ul class="rows">
+          {c.services.map((s) => (
+            <li class="row">
+              <div class="row__name">
+                <span>{s.name}</span>
+                {s.note && <small>{s.note}</small>}
+                {s.consult && <small class="row__flag">Consultation recommended</small>}
+              </div>
+              <span class="row__dots" aria-hidden="true"></span>
+              <span class="row__price">{formatPrice(s)}</span>
+              <a class="btn btn--sm btn--ghost row__book" href={bookUrl(s)} aria-label={`Book ${s.name}`}>Book</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <aside class="note">
+      <div>
+        <h2>Not sure what to book?</h2>
+        <p>Start with a free color consultation, or call us at <a href={salon.phoneHref}>{salon.phone}</a>. A {salon.depositPercent}% deposit is required to hold online bookings.</p>
+      </div>
+      <a class="btn btn--light" href="/book">Book an appointment</a>
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .page-hero { padding-block: clamp(48px, 7vw, 96px) 40px; }
+  .page-hero .display { margin: 18px 0 20px; }
+
+  .cats { position: sticky; top: 76px; z-index: 30; background: rgb(250 247 243 / .92); backdrop-filter: blur(12px); border-block: 1px solid var(--line); }
+  .cats__inner { display: flex; gap: 8px; overflow-x: auto; padding-block: 12px; scrollbar-width: none; }
+  .cats__inner::-webkit-scrollbar { display: none; }
+  .cats a {
+    flex: none; padding: 10px 16px 7px; border-radius: 999px; border: 1px solid var(--line); background: var(--white);
+    text-decoration: none; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap;
+  }
+  .cats a:hover { border-color: var(--purple); color: var(--purple); }
+
+  .menu { padding-block: 56px 96px; display: grid; gap: 28px; }
+  .cat { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 40px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--line); scroll-margin-top: 150px; }
+  .cat__head h2 { font-size: clamp(26px, 3vw, 34px); font-weight: 300; }
+  .cat__head p { margin-top: 12px; color: var(--muted); font-size: 15.5px; }
+
+  .rows { list-style: none; margin: 0; padding: 0; }
+  .row { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .row:first-child { padding-top: 0; }
+  .row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .row__name { display: grid; gap: 2px; }
+  .row__name small { color: var(--muted); font-size: 13.5px; }
+  .row__flag { color: var(--purple) !important; }
+  .row__dots { border-bottom: 1px dotted var(--lilac-2); height: 1px; align-self: center; margin-top: 4px; }
+  .row__price { font-family: var(--font-serif); font-style: italic; font-size: 21px; color: var(--purple); white-space: nowrap; }
+  .row__book { min-height: 36px; padding: 11px 16px 8px; }
+
+  .note {
+    display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+    padding: 40px; border-radius: var(--radius); background: var(--purple); color: var(--white);
+  }
+  .note h2 { font-size: 28px; font-weight: 300; }
+  .note p { margin-top: 8px; color: rgb(255 255 255 / .82); max-width: 60ch; }
+  .note a:not(.btn) { color: var(--white); }
+
+  @media (max-width: 860px) {
+    .cat { grid-template-columns: 1fr; gap: 24px; padding: 28px 22px; }
+  }
+  @media (max-width: 760px) { .cats { top: 66px; } }
+  @media (max-width: 520px) {
+    .row { grid-template-columns: 1fr auto; row-gap: 8px; }
+    .row__dots { display: none; }
+    .row__book { grid-column: 1 / -1; justify-self: start; min-height: 0; padding: 0; border: 0; background: none; color: var(--purple); font-size: 12px; }
+    .row__book::after { content: ' →'; }
+    .row__book:hover { background: none; color: var(--purple-deep); text-decoration: underline; }
+  }
+</style>

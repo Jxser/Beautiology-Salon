@@ -1,0 +1,189 @@
+---
+import Base from '../layouts/Base.astro';
+import { salon, menu, formatPrice } from '../data/salon';
+import { bookUrl } from '../lib/booking';
+---
+
+<Base title="Book an Appointment" description="Book your haircut, color, balayage or consultation at Beautiology Salon in Henderson, NV." hideMobileBar>
+  <section class="book">
+    <div class="wrap book__grid">
+      <div class="book__main">
+        <span class="eyebrow">Book online</span>
+        <h1 class="h2">What are we doing <em>today?</em></h1>
+
+        <form class="picker" id="picker" action={bookUrl()} method="get">
+          <fieldset class="step">
+            <legend><span>1</span> Choose a category</legend>
+            <div class="chips" role="radiogroup">
+              {menu.map((c, i) => (
+                <label class="chip">
+                  <input type="radio" name="cat" value={c.slug} checked={i === 0} />
+                  <span>{c.name}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset class="step">
+            <legend><span>2</span> Pick your service</legend>
+            {menu.map((c) => (
+              <div class="opts" data-cat={c.slug}>
+                {c.services.map((s) => (
+                  <label class="opt">
+                    <input
+                      type="radio"
+                      name="service"
+                      value={s.fullslateId}
+                      data-name={s.name}
+                      data-price={formatPrice(s)}
+                      data-url={bookUrl(s)}
+                      data-consult={s.consult ? '1' : ''}
+                    />
+                    <span class="opt__name">{s.name}{s.note && <small>{s.note}</small>}</span>
+                    <span class="opt__price">{formatPrice(s)}</span>
+                  </label>
+                ))}
+              </div>
+            ))}
+          </fieldset>
+        </form>
+      </div>
+
+      <aside class="summary" aria-live="polite">
+        <div class="summary__card">
+          <span class="mark" aria-hidden="true"></span>
+          <p class="summary__label">Your appointment</p>
+          <p class="summary__name" id="sum-name">Select a service</p>
+          <p class="summary__price" id="sum-price">—</p>
+          <ul class="summary__facts">
+            <li>{salon.address.street}, {salon.address.city}</li>
+            <li>Choose your stylist & time on the next step</li>
+            <li>{salon.depositPercent}% deposit holds your spot</li>
+          </ul>
+          <p class="summary__consult" id="sum-consult" hidden>This service is best planned in person — we recommend booking the free consultation first or calling us.</p>
+          <a class="btn summary__go is-disabled" id="sum-go" href={bookUrl()} aria-disabled="true">Choose a time →</a>
+          <p class="summary__alt">Prefer to talk? <a href={salon.phoneHref}>{salon.phone}</a></p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('picker') as HTMLFormElement;
+  const groups = form.querySelectorAll<HTMLElement>('.opts');
+  const go = document.getElementById('sum-go') as HTMLAnchorElement;
+  const name = document.getElementById('sum-name')!;
+  const price = document.getElementById('sum-price')!;
+  const consult = document.getElementById('sum-consult')!;
+
+  function showCat(slug: string) {
+    groups.forEach((g) => (g.hidden = g.dataset.cat !== slug));
+  }
+
+  function select(input: HTMLInputElement) {
+    const d = input.dataset;
+    name.textContent = d.name ?? '';
+    price.textContent = d.price ?? '';
+    consult.hidden = !d.consult;
+    go.href = d.url ?? go.href;
+    go.classList.remove('is-disabled');
+    go.removeAttribute('aria-disabled');
+  }
+
+  form.addEventListener('change', (e) => {
+    const t = e.target as HTMLInputElement;
+    if (t.name === 'cat') showCat(t.value);
+    if (t.name === 'service') select(t);
+  });
+
+  go.addEventListener('click', (e) => {
+    if (go.classList.contains('is-disabled')) {
+      e.preventDefault();
+      form.querySelector<HTMLElement>('.opts:not([hidden]) input')?.focus();
+    }
+  });
+
+  // Deep link: /book?s=<serviceId> or /book#<category>
+  const params = new URLSearchParams(location.search);
+  const pre = params.get('s') && form.querySelector<HTMLInputElement>(`input[name=service][value="${params.get('s')}"]`);
+  const catFromHash = location.hash.slice(1);
+  const startCat = pre ? pre.closest<HTMLElement>('.opts')!.dataset.cat! : catFromHash || (form.querySelector<HTMLInputElement>('input[name=cat]:checked')!.value);
+  const catInput = form.querySelector<HTMLInputElement>(`input[name=cat][value="${startCat}"]`);
+  if (catInput) {
+    catInput.checked = true;
+    const chips = catInput.closest<HTMLElement>('.chips')!;
+    const chip = catInput.parentElement!;
+    chips.scrollLeft = chip.offsetLeft - chips.clientWidth / 2 + chip.clientWidth / 2;
+  }
+  showCat(catInput ? startCat : groups[0].dataset.cat!);
+  if (pre) { pre.checked = true; select(pre); }
+</script>
+
+<style>
+  .book { padding-block: clamp(40px, 6vw, 80px) 96px; }
+  .book__grid { display: grid; grid-template-columns: 1fr 380px; gap: clamp(28px, 4vw, 56px); align-items: start; }
+  .book__main { min-width: 0; }
+  .book__main .h2 { margin: 16px 0 36px; }
+
+  .step { border: 0; margin: 0 0 36px; padding: 0; min-width: 0; }
+  .step legend { display: flex; align-items: center; gap: 12px; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; padding: 0; }
+  .step legend span { display: grid; place-items: center; width: 28px; height: 28px; padding-top: 3px; border-radius: 50%; background: var(--purple); color: var(--white); font-size: 13px; letter-spacing: 0; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { position: relative; }
+  .chip input, .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip span {
+    display: inline-block; padding: 12px 18px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--white);
+    font-size: 14px; letter-spacing: .04em; cursor: pointer; transition: all .15s;
+  }
+  .chip span:hover { border-color: var(--purple); }
+  .chip input:checked + span { background: var(--purple); border-color: var(--purple); color: var(--white); }
+  .chip input:focus-visible + span, .opt:has(input:focus-visible) { outline: 3px solid var(--lilac-2); outline-offset: 2px; }
+
+  .opts { display: grid; gap: 10px; }
+  .opts[hidden] { display: none; }
+  .opt {
+    position: relative; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 18px 22px 16px; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--white);
+    cursor: pointer; transition: border-color .15s, box-shadow .15s, background .15s;
+  }
+  .opt:hover { border-color: var(--lilac-2); }
+  .opt:has(input:checked) { border-color: var(--purple); background: var(--lilac); box-shadow: inset 0 0 0 1px var(--purple); }
+  .opt__name { display: grid; gap: 2px; }
+  .opt__name small { color: var(--muted); font-size: 13.5px; }
+  .opt__price { font-family: var(--font-serif); font-style: italic; font-size: 21px; color: var(--purple); white-space: nowrap; }
+
+  .summary { position: sticky; top: 100px; }
+  .summary__card { padding: 32px; border-radius: var(--radius); background: var(--purple-ink); color: var(--white); position: relative; overflow: hidden; }
+  .summary__card .mark { position: absolute; right: -20px; top: -10px; height: 180px; color: var(--white); opacity: .07; }
+  .summary__label { font-size: 12.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--lilac-2); }
+  .summary__name { font-size: 24px; font-weight: 300; margin-top: 10px; line-height: 1.25; }
+  .summary__price { font-family: var(--font-serif); font-style: italic; font-size: 30px; color: var(--lilac-2); margin-top: 4px; }
+  .summary__facts { list-style: none; margin: 22px 0; padding: 20px 0 0; border-top: 1px solid rgb(255 255 255 / .14); display: grid; gap: 10px; font-size: 14.5px; color: rgb(255 255 255 / .78); }
+  .summary__facts li { position: relative; padding-left: 20px; }
+  .summary__facts li::before { content: ""; position: absolute; left: 0; top: .55em; width: 7px; height: 7px; border-radius: 50%; background: var(--lilac-2); }
+  .summary__consult { font-size: 14px; padding: 12px 14px; border-radius: var(--radius-sm); background: rgb(255 255 255 / .08); margin-bottom: 18px; }
+  .summary__go { width: 100%; --bg: var(--white); --fg: var(--purple-ink); }
+  .summary__go:hover { background: var(--lilac); border-color: var(--lilac); color: var(--purple-ink); }
+  .summary__go.is-disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+  .summary__alt { margin-top: 14px; text-align: center; font-size: 14px; color: rgb(255 255 255 / .7); }
+  .summary__alt a { color: var(--white); }
+
+  @media (max-width: 900px) {
+    .book__grid { grid-template-columns: 1fr; }
+    .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding: 2px var(--gutter); }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { flex: none; }
+    .book { padding-bottom: 200px; }
+    .summary { position: fixed; top: auto; inset-inline: 0; bottom: 0; z-index: 40; }
+    .summary__card { border-radius: var(--radius) var(--radius) 0 0; padding: 20px var(--gutter) calc(20px + env(safe-area-inset-bottom)); }
+    .summary__facts, .summary__label, .summary__card .mark { display: none; }
+    .summary__card { display: grid; grid-template-columns: 1fr auto; align-items: baseline; column-gap: 12px; }
+    .summary__name { font-size: 17px; margin-top: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .summary__price { font-size: 22px; margin: 0 0 12px; }
+    .summary__consult, .summary__go, .summary__alt { grid-column: 1 / -1; }
+    .summary__consult { margin-bottom: 12px; padding: 8px 12px; font-size: 13px; }
+    .summary__alt { margin-top: 10px; }
+  }
+</style>

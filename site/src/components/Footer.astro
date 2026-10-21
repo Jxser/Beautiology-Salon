@@ -1,0 +1,58 @@
+---
+import { salon } from '../data/salon';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="mark" aria-hidden="true"></span>
+      <p class="footer__word">Beautiology</p>
+      <p class="footer__tag">{salon.tagline}</p>
+    </div>
+
+    <div>
+      <h3>Visit</h3>
+      <p>{salon.address.street}<br />{salon.address.city}, {salon.address.region} {salon.address.zip}</p>
+      <a class="footer__link" href={salon.mapsUrl} target="_blank" rel="noopener">Get directions</a>
+    </div>
+
+    <div>
+      <h3>Hours</h3>
+      {salon.hours.map((h) => <p>{h.days}<br />{h.time}</p>)}
+    </div>
+
+    <div>
+      <h3>Contact</h3>
+      <p><a href={salon.phoneHref}>{salon.phone}</a><br /><a href={`mailto:${salon.email}`}>{salon.email}</a></p>
+      <p class="footer__social">
+        <a href={salon.instagram} target="_blank" rel="noopener">Instagram</a>
+        <a href={salon.facebook} target="_blank" rel="noopener">Facebook</a>
+      </p>
+    </div>
+  </div>
+  <div class="wrap footer__base">
+    <p>© {year} {salon.name} · Henderson, Nevada</p>
+    <a href="/book">Book an appointment →</a>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--purple-ink); color: rgb(255 255 255 / 0.78); padding-top: 72px; font-size: 15.5px; }
+  .footer a { color: var(--white); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 56px; }
+  .footer h3 { font-size: 12.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--lilac-2); margin-bottom: 14px; font-weight: 600; }
+  .footer p + p { margin-top: 10px; }
+  .footer__brand .mark { height: 54px; color: var(--lilac-2); }
+  .footer__word { font-size: 22px; color: var(--white); letter-spacing: .2em; text-transform: uppercase; font-weight: 600; margin-top: 14px; }
+  .footer__tag { font-family: var(--font-serif); font-style: italic; font-size: 20px; color: var(--lilac-2); }
+  .footer__link { display: inline-block; margin-top: 10px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+  .footer__social { display: flex; gap: 18px; }
+  .footer__base {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding-block: 22px; border-top: 1px solid rgb(255 255 255 / 0.12); font-size: 14px;
+  }
+  @media (max-width: 860px) { .footer__grid { grid-template-columns: 1fr 1fr; } .footer__brand { grid-column: 1 / -1; } }
+  @media (max-width: 480px) { .footer__grid { grid-template-columns: 1fr; } }
+</style>

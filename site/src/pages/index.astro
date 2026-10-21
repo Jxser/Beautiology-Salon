@@ -1,0 +1,262 @@
+---
+import Base from '../layouts/Base.astro';
+import { salon, menu, reviews, team, startingPrice } from '../data/salon';
+
+const featured = menu.filter((c) => c.featured);
+const steps = [
+  { n: '01', t: 'Pick your service', d: 'Browse the menu with real prices — cut, color, balayage or a consultation.' },
+  { n: '02', t: 'Choose a time', d: 'See live openings and book with your stylist of choice in under a minute.' },
+  { n: '03', t: 'Sit back & enjoy', d: 'Every visit starts with a personal consultation about your hair goals.' },
+];
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <span class="eyebrow">Henderson · Anthem Village</span>
+        <h1 class="display">Great hair doesn’t happen by chance — it happens <em>by appointment.</em></h1>
+        <p class="lede">Precision cuts, dimensional color, balayage and expert color correction from a team led by master colorist {salon.owner}, with 30+ years behind the chair.</p>
+        <div class="hero__actions">
+          <a class="btn" href="/book">Book an appointment</a>
+          <a class="btn btn--ghost" href="/services">View menu & prices</a>
+        </div>
+        <ul class="hero__proof">
+          <li><strong>★★★★★</strong> Rated {salon.rating.score}.0 by clients</li>
+          <li><strong>30+</strong> years experience</li>
+          <li><strong>Free</strong> color consultations</li>
+        </ul>
+      </div>
+      <div class="hero__media">
+        <img src="/images/cut.jpg" alt="Stylist trimming blonde hair with scissors and comb" width="1024" height="1024" fetchpriority="high" />
+        <div class="hero__badge">
+          <span class="mark" aria-hidden="true"></span>
+          <p><em>Healthy hair,</em><br />beautifully done.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section services">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <span class="eyebrow">Our services</span>
+          <h2 class="h2">Everything your hair needs, <em>under one roof.</em></h2>
+        </div>
+        <a class="link-arrow" href="/services">Full menu →</a>
+      </div>
+      <div class="cards">
+        {featured.map((c) => (
+          <a class="card" href={`/services#${c.slug}`} data-reveal>
+            <div class="card__top">
+              <h3>{c.name}</h3>
+              <span class="card__price">from ${startingPrice(c)}</span>
+            </div>
+            <p>{c.blurb}</p>
+            <span class="card__more">See options →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How booking works -->
+  <section class="section steps">
+    <div class="wrap">
+      <div class="section-head section-head--center" data-reveal>
+        <span class="eyebrow">Booking made simple</span>
+        <h2 class="h2">Three steps to <em>your best hair.</em></h2>
+      </div>
+      <ol class="steps__list">
+        {steps.map((s) => (
+          <li data-reveal>
+            <span class="steps__n">{s.n}</span>
+            <h3>{s.t}</h3>
+            <p>{s.d}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="steps__cta" data-reveal>
+        <a class="btn btn--light" href="/book">Start booking</a>
+        <p>A {salon.depositPercent}% deposit secures your appointment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section about">
+    <div class="wrap about__grid">
+      <div class="about__media" data-reveal>
+        <img src="/images/shampoo.jpg" alt="Client relaxing during a shampoo at the salon" width="1024" height="1024" loading="lazy" />
+      </div>
+      <div class="about__copy" data-reveal>
+        <span class="eyebrow">Meet Beautiology</span>
+        <h2 class="h2">Beautiful hair starts with <em>healthy hair.</em></h2>
+        <p>Beautiology is our flagship salon — where creativity, education and exceptional hair care come together. We use premium professional color lines, keep up with the latest techniques through continuing education, and begin every appointment with a one-on-one consultation about your lifestyle, goals and upkeep.</p>
+        <ul class="team">
+          {team.map((m) => (
+            <li>
+              <strong>{m.name}</strong>
+              <span>{m.role}</span>
+            </li>
+          ))}
+        </ul>
+        <a class="link-arrow" href="/about">Our story →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section reviews">
+    <div class="wrap">
+      <div class="section-head section-head--center" data-reveal>
+        <span class="eyebrow">Kind words</span>
+        <h2 class="h2">Loved by clients <em>across the valley.</em></h2>
+      </div>
+      <div class="reviews__grid">
+        {reviews.map((r) => (
+          <figure class="review" data-reveal>
+            <span class="review__stars" aria-label="5 out of 5 stars">★★★★★</span>
+            <blockquote>
+              <h3>“{r.title}”</h3>
+              <p>{r.body}</p>
+            </blockquote>
+            <figcaption>— {r.name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit -->
+  <section class="section visit" id="visit">
+    <div class="wrap visit__grid">
+      <div data-reveal>
+        <span class="eyebrow">Visit us</span>
+        <h2 class="h2">Find us in <em>Anthem Village.</em></h2>
+        <dl class="visit__list">
+          <div><dt>Address</dt><dd>{salon.address.street}<br />{salon.address.city}, {salon.address.region} {salon.address.zip}</dd></div>
+          {salon.hours.map((h) => <div><dt>Hours</dt><dd>{h.days}<br />{h.time}</dd></div>)}
+          <div><dt>Phone</dt><dd><a href={salon.phoneHref}>{salon.phone}</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href={salon.instagram} target="_blank" rel="noopener">{salon.instagramHandle}</a></dd></div>
+        </dl>
+        <div class="hero__actions">
+          <a class="btn" href="/book">Book now</a>
+          <a class="btn btn--ghost" href={salon.mapsUrl} target="_blank" rel="noopener">Get directions</a>
+        </div>
+      </div>
+      <div class="visit__map" data-reveal>
+        <iframe
+          title="Map to Beautiology Salon"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=2550+Anthem+Village+Dr+Suite+170,+Henderson,+NV+89052&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero { padding-block: clamp(40px, 6vw, 88px) clamp(64px, 8vw, 110px); overflow: hidden; }
+  .hero__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .hero__copy .display { margin: 22px 0 24px; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .hero__proof { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 40px 0 0; padding: 26px 0 0; list-style: none; border-top: 1px solid var(--line); font-size: 15px; color: var(--muted); }
+  .hero__proof strong { color: var(--purple); font-weight: 600; margin-right: 4px; }
+  .hero__media { position: relative; }
+  .hero__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 220px 220px var(--radius) var(--radius); box-shadow: var(--shadow); }
+  .hero__badge {
+    position: absolute; left: -28px; bottom: 36px; display: flex; align-items: center; gap: 14px;
+    padding: 18px 24px 16px 18px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .hero__badge .mark { height: 44px; color: var(--slate); }
+  .hero__badge p { font-size: 15px; letter-spacing: .04em; line-height: 1.3; }
+  .hero__badge em { font-family: var(--font-serif); color: var(--purple); font-size: 19px; }
+
+  /* Section heads */
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 48px; }
+  .section-head .h2 { margin-top: 16px; max-width: 18ch; }
+  .section-head--center { flex-direction: column; align-items: center; text-align: center; }
+  .section-head--center .h2 { max-width: 22ch; }
+
+  /* Service cards */
+  .services { background: var(--white); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+  .card {
+    display: flex; flex-direction: column; gap: 14px; padding: 30px; border-radius: var(--radius);
+    background: var(--cream); border: 1px solid var(--line); text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--lilac-2); background: var(--white); }
+  .card__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .card h3 { font-size: 23px; font-weight: 400; }
+  .card__price { font-family: var(--font-serif); font-style: italic; font-size: 20px; color: var(--purple); white-space: nowrap; }
+  .card p { color: var(--muted); font-size: 15.5px; flex: 1; }
+  .card__more { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); }
+
+  /* Steps */
+  .steps { background: var(--purple-ink); color: var(--white); position: relative; overflow: hidden; }
+  .steps::after {
+    content: ''; position: absolute; right: -6%; top: -10%; width: 420px; aspect-ratio: 236/360; opacity: .07; background: var(--white);
+    -webkit-mask: url('/logo-mark.png') center / contain no-repeat; mask: url('/logo-mark.png') center / contain no-repeat; pointer-events: none;
+  }
+  .steps .eyebrow { color: var(--lilac-2); }
+  .steps .h2 em { color: var(--lilac-2); }
+  .steps__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; position: relative; z-index: 1; }
+  .steps__list li { padding: 32px; border-radius: var(--radius); background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .12); }
+  .steps__n { font-family: var(--font-serif); font-style: italic; font-size: 34px; color: var(--lilac-2); }
+  .steps__list h3 { font-size: 22px; font-weight: 400; margin: 14px 0 10px; }
+  .steps__list p { color: rgb(255 255 255 / .72); font-size: 15.5px; }
+  .steps__cta { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 48px; position: relative; z-index: 1; }
+  .steps__cta p { font-size: 14px; color: rgb(255 255 255 / .6); }
+
+  /* About */
+  .about__grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 88px); align-items: center; }
+  .about__media img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius) var(--radius) 220px var(--radius); }
+  .about__copy .h2 { margin: 16px 0 22px; }
+  .about__copy > p { color: var(--ink-2); }
+  .team { list-style: none; margin: 30px 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .team li { padding: 18px 20px 16px; border-radius: var(--radius-sm); background: var(--white); border: 1px solid var(--line); display: grid; gap: 2px; }
+  .team strong { font-weight: 600; }
+  .team span { font-size: 14px; color: var(--muted); }
+
+  /* Reviews */
+  .reviews { background: var(--lilac); }
+  .reviews__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .review { margin: 0; padding: 32px; border-radius: var(--radius); background: var(--white); display: flex; flex-direction: column; gap: 16px; }
+  .review__stars { color: var(--purple); letter-spacing: .2em; }
+  .review blockquote { margin: 0; flex: 1; }
+  .review h3 { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 24px; margin-bottom: 12px; line-height: 1.2; }
+  .review p { color: var(--ink-2); font-size: 15.5px; }
+  .review figcaption { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+  /* Visit */
+  .visit__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: stretch; }
+  .visit .h2 { margin: 16px 0 30px; }
+  .visit__list { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; }
+  .visit__list dt { font-size: 12.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--purple); font-weight: 600; margin-bottom: 4px; }
+  .visit__list dd { margin: 0; color: var(--ink-2); }
+  .visit__list a { text-decoration: none; }
+  .visit__list a:hover { color: var(--purple); }
+  .visit__map { min-height: 380px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--sand); }
+  .visit__map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; filter: grayscale(.4) contrast(1.05); }
+
+  @media (max-width: 960px) {
+    .hero__grid, .about__grid, .visit__grid { grid-template-columns: 1fr; }
+    .hero__media { max-width: 520px; }
+    .hero__badge { left: 16px; }
+    .steps__list, .reviews__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .section-head { flex-direction: column; align-items: start; }
+    .section-head--center { align-items: center; }
+    .cards { grid-template-columns: 1fr; }
+    .card, .review, .steps__list li { padding: 24px; }
+    .team, .visit__list { grid-template-columns: 1fr; }
+    .hero__actions .btn { flex: 1 1 100%; }
+  }
+</style>

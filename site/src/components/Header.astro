@@ -1,0 +1,92 @@
+---
+import { salon } from '../data/salon';
+
+const nav = [
+  { href: '/services', label: 'Services' },
+  { href: '/about', label: 'About' },
+  { href: '/#visit', label: 'Visit' },
+];
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="header">
+  <div class="wrap header__inner">
+    <a class="brand" href="/" aria-label={`${salon.name} home`}>
+      <span class="mark brand__mark" aria-hidden="true"></span>
+      <span class="brand__word">Beautiology</span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      {nav.map((n) => (
+        <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>
+      ))}
+    </nav>
+
+    <div class="header__cta">
+      <a class="header__phone" href={salon.phoneHref}>{salon.phone}</a>
+      <a class="btn btn--sm" href="/book">Book now</a>
+    </div>
+
+    <details class="menu">
+      <summary aria-label="Open menu"><span></span><span></span></summary>
+      <div class="menu__panel">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+        <a href={salon.phoneHref}>{salon.phone}</a>
+        <a class="btn" href="/book">Book now</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgb(250 247 243 / 0.86);
+    backdrop-filter: saturate(1.4) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+  .header__inner { display: flex; align-items: center; gap: 32px; height: 76px; }
+
+  .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--purple); }
+  .brand__mark { height: 40px; color: var(--slate); }
+  .brand__word { font-size: 22px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding-top: 4px; }
+
+  .nav { display: flex; gap: 30px; margin-left: auto; }
+  .nav a, .header__phone {
+    text-decoration: none; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2);
+    padding-top: 3px;
+  }
+  .nav a:hover, .nav a[aria-current] { color: var(--purple); }
+  .header__cta { display: flex; align-items: center; gap: 22px; }
+
+  .menu { display: none; margin-left: auto; position: relative; }
+  .menu summary {
+    list-style: none; cursor: pointer; width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-content: center; gap: 6px; border: 1px solid var(--line); background: var(--white);
+  }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu summary span { display: block; width: 18px; height: 1.5px; background: var(--ink); transition: transform .2s; }
+  .menu[open] summary span:first-child { transform: translateY(3.75px) rotate(45deg); }
+  .menu[open] summary span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+  .menu__panel {
+    position: absolute; right: 0; top: 56px; width: min(280px, calc(100vw - 32px));
+    display: grid; gap: 4px; padding: 14px; border-radius: var(--radius);
+    background: var(--white); box-shadow: var(--shadow); border: 1px solid var(--line);
+  }
+  .menu__panel a:not(.btn) {
+    padding: 12px 10px 9px; text-decoration: none; text-transform: uppercase; letter-spacing: .1em; font-size: 14px;
+    border-radius: 8px;
+  }
+  .menu__panel a:not(.btn):hover { background: var(--lilac); }
+  .menu__panel .btn { margin-top: 8px; }
+
+  @media (max-width: 960px) { .header__phone { display: none; } .nav { gap: 22px; } }
+  @media (max-width: 760px) {
+    .nav, .header__cta { display: none; }
+    .menu { display: block; }
+    .header__inner { height: 66px; }
+    .brand__word { font-size: 19px; }
+    .brand__mark { height: 34px; }
+  }
+</style>
