@@ -86,5 +86,11 @@ const values = [
   .person__role { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); margin: 6px 0 14px; }
   .person p:last-child { color: var(--muted); font-size: 15.5px; }
 
-  @media (max-width: 860px) { .story, .values { grid-template-columns: 1fr; } }
+  @media (max-width: 1024px) { .story { gap: 40px; } .values > div, .person { padding: 26px; } }
+  @media (max-width: 760px) {
+    .story, .values { grid-template-columns: 1fr; }
+    .story { gap: 28px; }
+    .story img { aspect-ratio: 3 / 2; }
+    .page-hero { padding-bottom: 36px; }
+  }
 </style>

@@ -41,7 +41,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
+/* height:auto lets aspect-ratio win over the width/height attributes (kept for layout stability) */
+img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 
 h1, h2, h3, h4 { margin: 0; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; }

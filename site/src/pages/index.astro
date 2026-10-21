@@ -245,17 +245,56 @@ const steps = [
   .visit__map { min-height: 380px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--sand); }
   .visit__map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; filter: grayscale(.4) contrast(1.05); }
 
-  @media (max-width: 960px) {
-    .hero__grid, .about__grid, .visit__grid { grid-template-columns: 1fr; }
-    .hero__media { max-width: 520px; }
-    .hero__badge { left: 16px; }
-    .steps__list, .reviews__grid { grid-template-columns: 1fr; }
+  /* Tablet: keep side-by-side layouts, tighten spacing */
+  @media (max-width: 1024px) {
+    .hero__grid { grid-template-columns: 1.2fr 0.8fr; gap: 32px; }
+    .hero__media img { border-radius: 160px 160px var(--radius) var(--radius); }
+    .hero__badge { left: -16px; bottom: 24px; padding: 14px 18px 12px 14px; }
+    .hero__proof { gap: 8px 20px; }
+    .about__grid { gap: 40px; }
+    .steps__list li { padding: 26px; }
+    .visit__grid { grid-template-columns: 1fr; }
+    .visit__map, .visit__map iframe { min-height: 320px; }
+
+    /* Reviews become a swipeable row */
+    .reviews__grid {
+      grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(300px, 46%);
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+      margin-inline: calc(var(--gutter) * -1); padding: 4px var(--gutter) 8px; scroll-padding-inline: var(--gutter);
+    }
+    .reviews__grid::-webkit-scrollbar { display: none; }
+    .review { scroll-snap-align: start; }
   }
+
+  /* Phone: single column, wide crops instead of tall portraits */
+  @media (max-width: 760px) {
+    .hero { padding-block: 28px 56px; }
+    .hero__grid, .about__grid { grid-template-columns: 1fr; gap: 28px; }
+    .hero__copy .display { margin: 16px 0 18px; }
+    .hero__actions { margin-top: 26px; }
+    .hero__proof { margin-top: 28px; padding-top: 20px; }
+    .hero__media img { aspect-ratio: 4 / 3; object-position: center 30%; border-radius: var(--radius); }
+    .hero__badge { left: 12px; bottom: 12px; padding: 10px 14px 8px 10px; gap: 10px; }
+    .hero__badge .mark { height: 32px; }
+    .hero__badge p { font-size: 13px; }
+    .hero__badge em { font-size: 16px; }
+
+    .about__media img { aspect-ratio: 3 / 2; border-radius: var(--radius) var(--radius) 96px var(--radius); }
+
+    .steps__list { grid-template-columns: 1fr; gap: 10px; }
+    .steps__list li { display: grid; grid-template-columns: 44px 1fr; column-gap: 14px; padding: 20px; }
+    .steps__n { grid-row: span 2; font-size: 28px; line-height: 1; }
+    .steps__list h3 { margin: 0 0 4px; font-size: 19px; }
+    .steps::after { width: 260px; }
+
+    .reviews__grid { grid-auto-columns: 86%; }
+  }
+
   @media (max-width: 600px) {
-    .section-head { flex-direction: column; align-items: start; }
+    .section-head { flex-direction: column; align-items: start; margin-bottom: 32px; }
     .section-head--center { align-items: center; }
     .cards { grid-template-columns: 1fr; }
-    .card, .review, .steps__list li { padding: 24px; }
+    .card, .review { padding: 24px; }
     .team, .visit__list { grid-template-columns: 1fr; }
     .hero__actions .btn { flex: 1 1 100%; }
   }
