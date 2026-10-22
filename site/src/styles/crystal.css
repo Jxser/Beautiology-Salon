@@ -1,0 +1,39 @@
+/* Crystal Salon & Headspa theme. Loaded after global.css and remaps its tokens, so the
+   shared components (buttons, eyebrows, cards) take Crystal's colors and type.
+   Token names come from global.css; the values here are Crystal's. */
+:root {
+  --purple: #305460;        /* primary: deep slate teal from the logo */
+  --purple-deep: #223f49;
+  --purple-ink: #1c3540;    /* dark sections */
+  --lilac: #e7efee;         /* mist */
+  --lilac-2: #b8d0cf;
+  --slate: #76a2a2;         /* teal accent from the current site */
+  --ink: #1a272c;
+  --ink-2: #3a4a50;
+  --muted: #64767b;
+  --cream: #f5f4ee;         /* warm cream from the logo */
+  --sand: #ebeae1;
+  --line: #dde2dd;
+
+  --accent: #4d8384;        /* readable teal for italic accents and prices */
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+}
+
+.display,
+.h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+.display { line-height: 1.05; }
+.display em,
+.h2 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+.eyebrow { color: var(--accent); }
+.link-arrow { color: var(--purple); }
+.btn { font-weight: 500; letter-spacing: 0.1em; }

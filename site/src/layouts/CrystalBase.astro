@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import '../styles/crystal.css';
+import CrystalHeader from '../components/crystal/CrystalHeader.astro';
+import CrystalFooter from '../components/crystal/CrystalFooter.astro';
+import { crystal } from '../data/crystal';
+
+interface Props {
+  title?: string;
+  description?: string;
+  hideMobileBar?: boolean;
+}
+
+const {
+  title,
+  description = 'Crystal Salon & Headspa in Henderson, NV, offers Japanese-inspired head spa treatments, haircuts, color, extensions, and lash and brow services. Book online.',
+  hideMobileBar = false,
+} = Astro.props;
+
+const fullTitle = title ? `${title} · ${crystal.name}` : `${crystal.name} · Head Spa & Hair Salon in Henderson, NV`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Preview only: keep it out of search results until it moves to its own domain. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/crystal/logo.png" />
+    <meta name="theme-color" content="#305460" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL('/crystal/headspa.jpg', Astro.url)} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap"
+    />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+  </head>
+  <body>
+    <a class="sr-only" href="#main">Skip to content</a>
+    <CrystalHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <CrystalFooter />
+
+    {!hideMobileBar && (
+      <div class="mobile-bar">
+        <a class="btn btn--ghost btn--sm" href={crystal.phoneHref}>Call</a>
+        <a class="btn btn--sm" href="/crystal/book">Book now</a>
+      </div>
+    )}
+
+    <script>
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('is-in'), io.unobserve(e.target))),
+        { rootMargin: '0px 0px -8% 0px' },
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+      // Never leave content hidden if the observer doesn't fire (old browsers, background tabs).
+      setTimeout(() => document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-in')), 2500);
+    </script>
+  </body>
+</html>
+
+<style>
+  .mobile-bar {
+    position: fixed; inset: auto 0 0 0; z-index: 40;
+    display: none; gap: 10px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgb(245 244 238 / 0.92); backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+  }
+  .mobile-bar .btn { flex: 1; }
+  .mobile-bar .btn--ghost { flex: 0 0 34%; }
+  @media (max-width: 760px) {
+    .mobile-bar { display: flex; }
+    :global(body) { padding-bottom: 72px; }
+  }
+</style>

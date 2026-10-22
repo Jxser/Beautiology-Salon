@@ -1,0 +1,89 @@
+---
+import CrystalBase from '../../layouts/CrystalBase.astro';
+import { crystalTeam, crystalWork } from '../../data/crystal';
+
+const values = [
+  { t: 'Scalp health first', d: 'Our head spa services and add-ons focus on a clean, balanced scalp, which supports healthier hair growth.' },
+  { t: 'Personalized service', d: 'Every service is customized to your hair type, density, texture, lifestyle and goals, starting with a consultation.' },
+  { t: 'Professional products', d: 'We use professional color lines including Wella, Paul Mitchell, Kenra, Goldwell and Redken, with ammonia-free options available.' },
+];
+---
+
+<CrystalBase title="About Us" description="Crystal Salon & Headspa is a Henderson, NV salon offering Japanese-inspired head spa treatments and full hair services, co-owned by Lupita Pandula and Tracey La.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">About us</span>
+      <h1 class="display">About <em>Crystal</em></h1>
+      <p class="lede">Crystal Salon &amp; Headspa brings hair care, scalp wellness and relaxation together in Henderson, Nevada.</p>
+    </div>
+  </section>
+
+  <section class="wrap story">
+    <img src={crystalWork[0].src} alt={crystalWork[0].alt} width={crystalWork[0].w} height={crystalWork[0].h} loading="lazy" data-reveal />
+    <div class="story__copy" data-reveal>
+      <p>We offer a full range of professional hair services alongside Japanese-inspired head spa treatments. Whether you are coming in for a precision haircut, dimensional color, a scalp detox or a relaxing head spa session, our team gives every appointment the same attention to detail.</p>
+      <p>The salon is home to a group of independent beauty professionals who keep up with current techniques through ongoing education. We use high-quality products to deliver healthy, beautiful hair while promoting scalp wellness and relaxation.</p>
+      <a class="btn" href="/crystal/book">Book an appointment</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap values">
+      {values.map((v) => (
+        <div data-reveal>
+          <h2>{v.t}</h2>
+          <p>{v.d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section team-wrap">
+    <div class="wrap">
+      <span class="eyebrow">Our team</span>
+      <h2 class="h2">The <em>owners</em></h2>
+      <div class="people">
+        {crystalTeam.map((m) => (
+          <article class="person" data-reveal>
+            <div class="person__avatar" aria-hidden="true">{m.name.split(' ').map((p) => p[0]).join('')}</div>
+            <h3>{m.name}</h3>
+            <p class="person__role">{m.role}</p>
+            <p>{m.bio}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</CrystalBase>
+
+<style>
+  .page-hero { padding-block: clamp(44px, 6vw, 88px) 48px; }
+  .page-hero .display { margin: 18px 0 18px; }
+
+  .story { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .story img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 999px 999px var(--radius) var(--radius); }
+  .story__copy { display: grid; gap: 18px; justify-items: start; color: var(--ink-2); font-size: 18px; }
+  .story__copy .btn { margin-top: 8px; }
+
+  .values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .values > div { padding: 30px; border-top: 2px solid var(--slate); background: var(--white); border-radius: 0 0 var(--radius) var(--radius); }
+  .values h2 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; margin-bottom: 10px; }
+  .values p { color: var(--muted); font-size: 15.5px; }
+
+  .team-wrap { background: var(--lilac); }
+  .team-wrap .h2 { margin: 14px 0 36px; }
+  .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .person { padding: 30px; border-radius: var(--radius); background: var(--white); }
+  .person__avatar { width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center; background: var(--purple); color: var(--white); font-family: var(--font-serif); font-size: 24px; margin-bottom: 18px; }
+  .person h3 { font-family: var(--font-serif); font-weight: 400; font-size: 26px; }
+  .person__role { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 6px 0 12px; }
+  .person p:last-child { color: var(--muted); font-size: 15.5px; }
+
+  @media (max-width: 1024px) { .values > div, .person { padding: 24px; } }
+  @media (max-width: 760px) {
+    .story, .values { grid-template-columns: 1fr; }
+    .story { gap: 28px; }
+    .story img { aspect-ratio: 4 / 3; border-radius: var(--radius); }
+    .story__copy { font-size: 17px; }
+  }
+</style>

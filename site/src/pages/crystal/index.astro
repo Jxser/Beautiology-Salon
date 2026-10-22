@@ -1,0 +1,261 @@
+---
+import CrystalBase from '../../layouts/CrystalBase.astro';
+import { crystal, crystalMenu, crystalTeam, crystalWork, headspaTiers, crystalStartingPrice } from '../../data/crystal';
+
+const featured = crystalMenu.filter((c) => c.featured && c.slug !== 'headspa');
+---
+
+<CrystalBase>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <span class="eyebrow">Head Spa &amp; Hair Salon · Henderson, NV</span>
+        <h1 class="display">Head spa and hair care, <em>in one calm space</em></h1>
+        <p class="lede">Japanese-inspired head spa treatments, expert color and cuts, hair extensions, and lash and brow services, led by co-owners {crystal.owners}.</p>
+        <div class="hero__actions">
+          <a class="btn" href="/crystal/book">Book an appointment</a>
+          <a class="btn btn--ghost" href="/crystal/services">View menu &amp; prices</a>
+        </div>
+        <ul class="hero__proof">
+          <li><strong>4</strong> head spa experiences</li>
+          <li><strong>Hair, lash</strong> and brow services</li>
+          <li><strong>Free</strong> color and extension consultations</li>
+        </ul>
+      </div>
+      <div class="hero__media">
+        <img src="/crystal/headspa.jpg" alt="Guest relaxing during a head spa scalp treatment" width="1920" height="700" fetchpriority="high" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Head spa tiers -->
+  <section class="section spa">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <span class="eyebrow">Signature head spa</span>
+          <h2 class="h2">Choose your <em>experience</em></h2>
+        </div>
+        <p class="section-head__note">Every head spa includes aromatherapy, a double cleanse, conditioning and scalp massage. Longer sessions add massage and facial care.</p>
+      </div>
+      <ol class="tiers">
+        {headspaTiers.map((t) => (
+          <li class={`tier tier--${t.name.toLowerCase()}`} data-reveal>
+            <div class="tier__top">
+              <h3>{t.name}</h3>
+              <span class="tier__meta"><span>{t.minutes} min</span><span>${t.price}</span></span>
+            </div>
+            <ul>
+              {t.includes.map((i) => <li>{i}</li>)}
+            </ul>
+            <a class="btn btn--sm tier__book" href={`/crystal/book?s=${t.fullslateId}`}>Book {t.name}</a>
+          </li>
+        ))}
+      </ol>
+      <p class="spa__addons" data-reveal>Add scalp detox, infrared light therapy, high frequency treatment and more. <a href="/crystal/services#headspa-addons">See all add-ons →</a></p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section services">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <span class="eyebrow">Services</span>
+          <h2 class="h2">Hair, lash <em>and brow</em></h2>
+        </div>
+        <a class="link-arrow" href="/crystal/services">View full menu →</a>
+      </div>
+      <div class="cards">
+        {featured.map((c) => (
+          <a class="card" href={`/crystal/services#${c.slug}`} data-reveal>
+            <div class="card__top">
+              <h3>{c.name}</h3>
+              <span class="card__price">from ${crystalStartingPrice(c)}</span>
+            </div>
+            <p>{c.blurb}</p>
+            <span class="card__more">View services →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent work -->
+  <section class="section work">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div>
+          <span class="eyebrow">Recent work</span>
+          <h2 class="h2">From our <em>chairs</em></h2>
+        </div>
+      </div>
+      <div class="gallery">
+        {crystalWork.map((p) => (
+          <figure data-reveal>
+            <img src={p.src} alt={p.alt} width={p.w} height={p.h} loading="lazy" />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section team-wrap">
+    <div class="wrap team">
+      <div data-reveal>
+        <span class="eyebrow">About the salon</span>
+        <h2 class="h2">Healthy hair starts with <em>a healthy scalp</em></h2>
+        <p class="team__lede">Crystal Salon &amp; Headspa is home to a team of independent beauty professionals. Every visit begins with a consultation, and every service is tailored to your hair type, scalp and goals.</p>
+        <a class="link-arrow" href="/crystal/about">About us →</a>
+      </div>
+      <ul class="people">
+        {crystalTeam.map((m) => (
+          <li class="person" data-reveal>
+            <span class="person__avatar" aria-hidden="true">{m.name.split(' ').map((p) => p[0]).join('')}</span>
+            <div>
+              <h3>{m.name}</h3>
+              <p class="person__role">{m.role}</p>
+              <p>{m.bio}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Visit -->
+  <section class="section visit" id="visit">
+    <div class="wrap visit__grid">
+      <div data-reveal>
+        <span class="eyebrow">Location</span>
+        <h2 class="h2">Visit the <em>salon</em></h2>
+        <dl class="visit__list">
+          <div><dt>Address</dt><dd>{crystal.address.street}<br />{crystal.address.city}, {crystal.address.region} {crystal.address.zip}</dd></div>
+          <div><dt>Hours</dt><dd>{crystal.hours.map((h) => <span class="visit__hours">{h.days}: {h.time}</span>)}</dd></div>
+          <div><dt>Phone</dt><dd><a href={crystal.phoneHref}>{crystal.phone}</a></dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${crystal.email}`}>{crystal.email}</a></dd></div>
+        </dl>
+        <div class="hero__actions">
+          <a class="btn" href="/crystal/book">Book now</a>
+          <a class="btn btn--ghost" href={crystal.mapsUrl} target="_blank" rel="noopener">Get directions</a>
+        </div>
+      </div>
+      <div class="visit__map" data-reveal>
+        <iframe title="Map to Crystal Salon & Headspa" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src={crystal.mapEmbed}></iframe>
+      </div>
+    </div>
+  </section>
+</CrystalBase>
+
+<style>
+  /* Hero */
+  .hero { padding-block: clamp(32px, 5vw, 72px) clamp(56px, 7vw, 96px); }
+  .hero__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+  .hero__copy .display { margin: 20px 0 22px; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero__proof { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 36px 0 0; padding: 24px 0 0; list-style: none; border-top: 1px solid var(--line); font-size: 15px; color: var(--muted); }
+  .hero__proof strong { color: var(--purple); font-weight: 600; margin-right: 4px; }
+  .hero__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 72% center; border-radius: 999px 999px var(--radius) var(--radius); box-shadow: var(--shadow); }
+
+  /* Section heads */
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px 48px; margin-bottom: 44px; }
+  .section-head .h2 { margin-top: 14px; }
+  .section-head__note { max-width: 44ch; color: var(--muted); font-size: 15.5px; }
+
+  /* Head spa tiers */
+  .spa { background: var(--purple-ink); color: var(--white); }
+  .spa .eyebrow { color: var(--lilac-2); }
+  .spa .h2 em { color: var(--lilac-2); }
+  .spa .section-head__note { color: rgb(255 255 255 / .7); }
+  .tiers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .tier {
+    display: flex; flex-direction: column; gap: 18px; padding: 28px 26px; border-radius: var(--radius);
+    background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .12); border-top: 3px solid var(--gem);
+  }
+  .tier--ruby { --gem: #c0566a; }
+  .tier--amber { --gem: #d39a45; }
+  .tier--citrine { --gem: #e2c75a; }
+  .tier--jade { --gem: #5fae8c; }
+  .tier__top { display: grid; gap: 8px; }
+  .tier h3 { font-family: var(--font-serif); font-weight: 400; font-size: 30px; letter-spacing: .01em; }
+  .tier__meta { display: flex; justify-content: space-between; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: rgb(255 255 255 / .7); font-variant-numeric: tabular-nums; }
+  .tier__meta span:last-child { color: var(--white); font-weight: 600; }
+  .tier ul { list-style: none; margin: 0; padding: 16px 0 0; border-top: 1px solid rgb(255 255 255 / .12); display: grid; gap: 8px; flex: 1; font-size: 15px; color: rgb(255 255 255 / .8); }
+  .tier ul li { position: relative; padding-left: 16px; }
+  .tier ul li::before { content: ''; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--gem); }
+  .tier__book { --bg: var(--white); --fg: var(--purple-ink); align-self: start; }
+  .tier__book:hover { background: var(--lilac); border-color: var(--lilac); color: var(--purple-ink); }
+  .spa__addons { margin-top: 28px; color: rgb(255 255 255 / .75); }
+  .spa__addons a { color: var(--white); }
+
+  /* Service cards */
+  .services { background: var(--white); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .card {
+    display: flex; flex-direction: column; gap: 12px; padding: 28px; border-radius: var(--radius);
+    background: var(--cream); border: 1px solid var(--line); text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow); background: var(--white); }
+  .card__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .card h3 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; }
+  .card__price { color: var(--accent); font-weight: 500; white-space: nowrap; }
+  .card p { color: var(--muted); font-size: 15.5px; flex: 1; }
+  .card__more { font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); }
+
+  /* Gallery */
+  .gallery { columns: 4 220px; column-gap: 14px; }
+  .gallery figure { margin: 0 0 14px; break-inside: avoid; }
+  .gallery img { width: 100%; border-radius: var(--radius-sm); }
+
+  /* Team */
+  .team-wrap { background: var(--lilac); }
+  .team { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .team .h2 { margin: 14px 0 20px; }
+  .team__lede { color: var(--ink-2); margin-bottom: 24px; }
+  .people { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .person { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 18px; padding: 24px; border-radius: var(--radius); background: var(--white); }
+  .person__avatar { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--purple); color: var(--white); font-family: var(--font-serif); font-size: 22px; }
+  .person h3 { font-family: var(--font-serif); font-weight: 400; font-size: 23px; }
+  .person__role { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 4px 0 10px; }
+  .person p:last-child { color: var(--muted); font-size: 15px; }
+
+  /* Visit */
+  .visit__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); }
+  .visit .h2 { margin: 14px 0 28px; }
+  .visit__list { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; }
+  .visit__list dt { font-size: 12.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+  .visit__list dd { margin: 0; color: var(--ink-2); overflow-wrap: anywhere; }
+  .visit__list a { text-decoration: none; }
+  .visit__hours { display: block; }
+  .visit__map { min-height: 380px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--sand); }
+  .visit__map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; filter: grayscale(.3); }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .hero__grid { grid-template-columns: 1.15fr 0.85fr; gap: 32px; }
+    .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .team { grid-template-columns: 1fr; }
+    .visit__grid { grid-template-columns: 1fr; }
+    .visit__map, .visit__map iframe { min-height: 320px; }
+  }
+  @media (max-width: 900px) { .section-head { flex-direction: column; align-items: start; } }
+
+  /* Phone */
+  @media (max-width: 760px) {
+    .hero { padding-block: 28px 56px; }
+    .hero__grid { grid-template-columns: 1fr; gap: 28px; }
+    .hero__media img { aspect-ratio: 4 / 3; border-radius: var(--radius); object-position: 70% center; }
+    .hero__actions .btn { flex: 1 1 100%; }
+    .tiers { grid-template-columns: 1fr; }
+    .tier { padding: 22px; }
+    .gallery { columns: 2; column-gap: 10px; }
+    .gallery figure { margin-bottom: 10px; }
+    .cards { grid-template-columns: 1fr; }
+    .person { grid-template-columns: 48px minmax(0, 1fr); padding: 20px; }
+    .person__avatar { width: 48px; height: 48px; font-size: 18px; }
+    .visit__list { grid-template-columns: 1fr; }
+  }
+</style>
