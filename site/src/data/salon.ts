@@ -3,7 +3,7 @@
 
 export const salon = {
   name: 'Beautiology Salon',
-  tagline: 'Healthy hair, beautifully done.',
+  tagline: 'Full-service hair salon in Henderson, Nevada.',
   owner: 'Tracey La',
   // TODO(confirm): the current site lists (725) 404-4247, FullSlate lists 702-483-6660
   // for the salon and (714) 865-9408 for Tracey directly. Pick one public number.
@@ -18,13 +18,13 @@ export const salon = {
   },
   mapsUrl:
     'https://maps.google.com/maps?daddr=2550%20Anthem%20Village%20Drive%2C%20Suite%20170%2C%20Henderson%2C%20NV%2089052',
-  // TODO(confirm): FullSlate shows 9–6 every day, but offers slots as early as 7 AM and as late as 7:15 PM.
+  // TODO(confirm): FullSlate shows 9 to 6 every day, but offers slots as early as 7 AM and as late as 7:15 PM.
   hours: [
-    { days: 'Monday – Sunday', time: '9:00 AM – 6:00 PM' },
+    { days: 'Open daily', time: '9:00 AM to 6:00 PM' },
   ],
   instagram: 'https://www.instagram.com/beautiology_salons/',
   instagramHandle: '@beautiology_salons',
-  // TODO(confirm): this Facebook page is named "hairaddictiam" — verify it belongs to the salon.
+  // TODO(confirm): this Facebook page is named "hairaddictiam". Verify it belongs to the salon.
   facebook: 'https://www.facebook.com/hairaddictiam/',
   depositPercent: 40,
   rating: { score: 5, count: 10 },
@@ -33,30 +33,30 @@ export const salon = {
 export const team = [
   {
     name: 'Tracey La',
-    role: 'Owner · Master Colorist · Educator',
-    bio: 'With more than 30 years behind the chair, Tracey specializes in color correction, balayage and blonding — and in fixing the hair other salons couldn’t.',
+    role: 'Owner, Master Colorist and Educator',
+    bio: 'Tracey has more than 30 years of experience and specializes in color correction, balayage and blonding. She also trains and mentors other stylists.',
   },
   {
     name: 'Lupita Pandula',
     role: 'Stylist',
-    bio: 'Precision cuts, polished blowouts and everyday color, delivered with the same care and consultation-first approach.',
+    bio: 'Lupita specializes in precision cuts, blowouts and everyday color, and starts every service with a consultation.',
   },
 ];
 
 export const reviews = [
   {
     title: 'Her balayage technique is perfection',
-    body: 'I’d searched all over Vegas for someone who knew how to handle my long, thick hair. Tracey ran with exactly what I wanted, in half the time, and left my hair soft and cared for.',
+    body: 'I had searched all over Las Vegas for a stylist who could handle my long, thick hair. Tracey understood exactly what I wanted, finished in half the time, and left my hair soft and healthy.',
     name: 'Verified client',
   },
   {
-    title: 'I got my hair back',
-    body: 'I came in with a mega-disaster cut and color from elsewhere. Tracey matched my color just by looking at it and fixed everything — my hair feels alive again.',
+    title: 'She fixed my hair',
+    body: 'I came in after a bad cut and color from another salon. Tracey matched my color by eye and corrected everything. My hair looks and feels healthy again.',
     name: 'Verified client',
   },
   {
     title: 'Love this salon',
-    body: 'Very neat and professional, and the staff is super friendly. I loved my cut and color and I’ll be coming back.',
+    body: 'Clean, professional and a very friendly staff. I loved my cut and color and will definitely be back.',
     name: 'Verified client',
   },
 ];
@@ -84,7 +84,7 @@ export const menu: Category[] = [
   {
     slug: 'cuts',
     name: 'Haircuts',
-    blurb: 'Every cut includes shampoo, shaping, styling and detailing — tailored to your face shape, texture and lifestyle.',
+    blurb: 'Every haircut includes a shampoo, cut, style and finish, tailored to your face shape, hair texture and lifestyle.',
     featured: true,
     services: [
       { name: 'Women’s Haircut · Short', price: 45, fullslateId: 31 },
@@ -99,7 +99,7 @@ export const menu: Category[] = [
   {
     slug: 'styling',
     name: 'Blowouts & Styling',
-    blurb: 'Smooth, polished, salon-finished hair — sleek, soft curls or extra volume.',
+    blurb: 'Professional blowouts for a smooth, polished finish, from sleek and straight to soft curls or added volume.',
     services: [
       { name: 'Shampoo & Blowout', price: 45, from: true, note: 'Longer, thicker or curly hair is additional.', fullslateId: 6 },
       { name: 'Blowout with Curling Iron', price: 55, fullslateId: 9628 },
@@ -109,7 +109,7 @@ export const menu: Category[] = [
   {
     slug: 'color',
     name: 'Color',
-    blurb: 'Root touch-ups and all-over color with Wella Koleston, Paul Mitchell, Kenra, Goldwell and Redken — including ammonia-free options.',
+    blurb: 'Root touch-ups and all-over color using Wella Koleston, Paul Mitchell, Kenra, Goldwell and Redken, with ammonia-free options available.',
     featured: true,
     services: [
       { name: 'Root Retouch · Fine', price: 60, fullslateId: 8 },
@@ -125,7 +125,7 @@ export const menu: Category[] = [
   {
     slug: 'highlights',
     name: 'Highlights',
-    blurb: 'Brightness and dimension, pre-lightened for a non-brassy result. Toner is additional.',
+    blurb: 'Partial and full highlights, pre-lightened for a clean, non-brassy result. Toner is priced separately.',
     featured: true,
     services: [
       { name: 'Partial Highlights · Short', price: 85, fullslateId: 34 },
@@ -141,7 +141,7 @@ export const menu: Category[] = [
   {
     slug: 'balayage-blonding',
     name: 'Balayage & Blonding',
-    blurb: 'Hand-painted, low-maintenance dimension or a full blonde — lightened with a bond-building treatment to protect your hair.',
+    blurb: 'Hand-painted balayage for soft, low-maintenance dimension, or full blonding with a bond-building treatment to protect your hair.',
     featured: true,
     services: [
       { name: 'Ombré Balayage · Short', price: 225, fullslateId: 19 },
@@ -157,7 +157,7 @@ export const menu: Category[] = [
   {
     slug: 'specialty',
     name: 'Specialty & Correction',
-    blurb: 'Vivid fashion shades and corrective color. These start with a consultation so we can plan your transformation.',
+    blurb: 'Vivid fashion color and corrective color. Both begin with a consultation so we can plan your service and give you an accurate quote.',
     featured: true,
     services: [
       { name: 'Color Correction Consultation', price: 'Free', fullslateId: 2096, consult: true },
@@ -168,7 +168,7 @@ export const menu: Category[] = [
   {
     slug: 'treatments',
     name: 'Treatments & Smoothing',
-    blurb: 'Restore moisture, strength and shine — or enjoy up to 12 weeks of frizz-free hair with a Brazilian Blowout.',
+    blurb: 'Conditioning treatments to restore moisture and shine, and Brazilian Blowouts for up to 12 weeks of frizz-free hair.',
     services: [
       { name: 'Conditioning Treatment or Mask + Blowout', price: 75, fullslateId: 16 },
       { name: 'Color Gloss / Shine Treatment + Blowout', price: 90, fullslateId: 17 },
@@ -181,7 +181,7 @@ export const menu: Category[] = [
   {
     slug: 'waves',
     name: 'Perms & Waves',
-    blurb: 'Modern perms for soft waves, natural curl or lasting volume, customized to your texture.',
+    blurb: 'Modern perms and body waves for soft texture, natural curl or lasting volume, customized to your hair type.',
     services: [
       { name: 'Beach / Body Waves · Short', price: 95, fullslateId: 959 },
       { name: 'Beach / Body Waves · Medium', price: 115, fullslateId: 8205 },

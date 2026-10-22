@@ -8,8 +8,8 @@ import { bookUrl } from '../lib/booking';
   <section class="book">
     <div class="wrap book__grid">
       <div class="book__main">
-        <span class="eyebrow">Book online</span>
-        <h1 class="h2">What are we doing <em>today?</em></h1>
+        <span class="eyebrow">Online booking</span>
+        <h1 class="h2">Book an <em>appointment</em></h1>
 
         <form class="picker" id="picker" action={bookUrl()} method="get">
           <fieldset class="step">
@@ -54,15 +54,15 @@ import { bookUrl } from '../lib/booking';
           <span class="mark" aria-hidden="true"></span>
           <p class="summary__label">Your appointment</p>
           <p class="summary__name" id="sum-name">Select a service</p>
-          <p class="summary__price" id="sum-price">—</p>
+          <p class="summary__price" id="sum-price"></p>
           <ul class="summary__facts">
             <li>{salon.address.street}, {salon.address.city}</li>
-            <li>Choose your stylist & time on the next step</li>
-            <li>{salon.depositPercent}% deposit holds your spot</li>
+            <li>Choose your stylist and time on the next step</li>
+            <li>A {salon.depositPercent}% deposit confirms your booking</li>
           </ul>
-          <p class="summary__consult" id="sum-consult" hidden>This service is best planned in person — we recommend booking the free consultation first or calling us.</p>
+          <p class="summary__consult" id="sum-consult" hidden>We recommend a free consultation before this service. You can book one online or call the salon.</p>
           <a class="btn summary__go is-disabled" id="sum-go" href={bookUrl()} aria-disabled="true">Choose a time →</a>
-          <p class="summary__alt">Prefer to talk? <a href={salon.phoneHref}>{salon.phone}</a></p>
+          <p class="summary__alt">Questions? Call <a href={salon.phoneHref}>{salon.phone}</a></p>
         </div>
       </aside>
     </div>

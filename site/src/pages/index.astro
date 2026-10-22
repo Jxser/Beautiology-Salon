@@ -4,9 +4,9 @@ import { salon, menu, reviews, team, startingPrice } from '../data/salon';
 
 const featured = menu.filter((c) => c.featured);
 const steps = [
-  { n: '01', t: 'Pick your service', d: 'Browse the menu with real prices — cut, color, balayage or a consultation.' },
-  { n: '02', t: 'Choose a time', d: 'See live openings and book with your stylist of choice in under a minute.' },
-  { n: '03', t: 'Sit back & enjoy', d: 'Every visit starts with a personal consultation about your hair goals.' },
+  { n: '01', t: 'Choose a service', d: 'Select from our full service menu with current pricing.' },
+  { n: '02', t: 'Pick a time', d: 'Choose your stylist and an available appointment time.' },
+  { n: '03', t: 'Confirm your visit', d: 'Place your deposit to hold the appointment. Your visit begins with a consultation.' },
 ];
 ---
 
@@ -15,16 +15,16 @@ const steps = [
   <section class="hero">
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <span class="eyebrow">Henderson · Anthem Village</span>
-        <h1 class="display">Great hair doesn’t happen by chance — it happens <em>by appointment.</em></h1>
-        <p class="lede">Precision cuts, dimensional color, balayage and expert color correction from a team led by master colorist {salon.owner}, with 30+ years behind the chair.</p>
+        <span class="eyebrow">Hair Salon in Henderson, NV</span>
+        <h1 class="display">Great hair doesn’t happen by chance. It happens <em>by appointment.</em></h1>
+        <p class="lede">Haircuts, color, balayage and color correction by a team led by master colorist {salon.owner}, who brings more than 30 years of experience to every appointment.</p>
         <div class="hero__actions">
           <a class="btn" href="/book">Book an appointment</a>
           <a class="btn btn--ghost" href="/services">View menu & prices</a>
         </div>
         <ul class="hero__proof">
-          <li><strong>★★★★★</strong> Rated {salon.rating.score}.0 by clients</li>
-          <li><strong>30+</strong> years experience</li>
+          <li><strong>★★★★★</strong> 5-star client reviews</li>
+          <li><strong>30+</strong> years of experience</li>
           <li><strong>Free</strong> color consultations</li>
         </ul>
       </div>
@@ -32,7 +32,7 @@ const steps = [
         <img src="/images/cut.jpg" alt="Stylist trimming blonde hair with scissors and comb" width="1024" height="1024" fetchpriority="high" />
         <div class="hero__badge">
           <span class="mark" aria-hidden="true"></span>
-          <p><em>Healthy hair,</em><br />beautifully done.</p>
+          <p><em>Now booking</em><br />online</p>
         </div>
       </div>
     </div>
@@ -43,10 +43,10 @@ const steps = [
     <div class="wrap">
       <div class="section-head" data-reveal>
         <div>
-          <span class="eyebrow">Our services</span>
-          <h2 class="h2">Everything your hair needs, <em>under one roof.</em></h2>
+          <span class="eyebrow">Services</span>
+          <h2 class="h2">Services and <em>pricing</em></h2>
         </div>
-        <a class="link-arrow" href="/services">Full menu →</a>
+        <a class="link-arrow" href="/services">View full menu →</a>
       </div>
       <div class="cards">
         {featured.map((c) => (
@@ -56,7 +56,7 @@ const steps = [
               <span class="card__price">from ${startingPrice(c)}</span>
             </div>
             <p>{c.blurb}</p>
-            <span class="card__more">See options →</span>
+            <span class="card__more">View services →</span>
           </a>
         ))}
       </div>
@@ -67,8 +67,8 @@ const steps = [
   <section class="section steps">
     <div class="wrap">
       <div class="section-head section-head--center" data-reveal>
-        <span class="eyebrow">Booking made simple</span>
-        <h2 class="h2">Three steps to <em>your best hair.</em></h2>
+        <span class="eyebrow">Online booking</span>
+        <h2 class="h2">How to <em>book</em></h2>
       </div>
       <ol class="steps__list">
         {steps.map((s) => (
@@ -80,8 +80,8 @@ const steps = [
         ))}
       </ol>
       <div class="steps__cta" data-reveal>
-        <a class="btn btn--light" href="/book">Start booking</a>
-        <p>A {salon.depositPercent}% deposit secures your appointment.</p>
+        <a class="btn btn--light" href="/book">Book an appointment</a>
+        <p>Online bookings require a {salon.depositPercent}% deposit.</p>
       </div>
     </div>
   </section>
@@ -93,9 +93,9 @@ const steps = [
         <img src="/images/shampoo.jpg" alt="Client relaxing during a shampoo at the salon" width="1024" height="1024" loading="lazy" />
       </div>
       <div class="about__copy" data-reveal>
-        <span class="eyebrow">Meet Beautiology</span>
-        <h2 class="h2">Beautiful hair starts with <em>healthy hair.</em></h2>
-        <p>Beautiology is our flagship salon — where creativity, education and exceptional hair care come together. We use premium professional color lines, keep up with the latest techniques through continuing education, and begin every appointment with a one-on-one consultation about your lifestyle, goals and upkeep.</p>
+        <span class="eyebrow">About the salon</span>
+        <h2 class="h2">Healthy hair <em>comes first</em></h2>
+        <p>Beautiology is a full-service hair salon in Henderson’s Anthem Village. We work with professional color lines, train regularly on current techniques, and start every appointment with a one-on-one consultation about your goals and how much upkeep you want.</p>
         <ul class="team">
           {team.map((m) => (
             <li>
@@ -104,7 +104,7 @@ const steps = [
             </li>
           ))}
         </ul>
-        <a class="link-arrow" href="/about">Our story →</a>
+        <a class="link-arrow" href="/about">About us →</a>
       </div>
     </div>
   </section>
@@ -113,8 +113,8 @@ const steps = [
   <section class="section reviews">
     <div class="wrap">
       <div class="section-head section-head--center" data-reveal>
-        <span class="eyebrow">Kind words</span>
-        <h2 class="h2">Loved by clients <em>across the valley.</em></h2>
+        <span class="eyebrow">Reviews</span>
+        <h2 class="h2">What our <em>clients say</em></h2>
       </div>
       <div class="reviews__grid">
         {reviews.map((r) => (
@@ -124,7 +124,7 @@ const steps = [
               <h3>“{r.title}”</h3>
               <p>{r.body}</p>
             </blockquote>
-            <figcaption>— {r.name}</figcaption>
+            <figcaption>{r.name}</figcaption>
           </figure>
         ))}
       </div>
@@ -135,8 +135,8 @@ const steps = [
   <section class="section visit" id="visit">
     <div class="wrap visit__grid">
       <div data-reveal>
-        <span class="eyebrow">Visit us</span>
-        <h2 class="h2">Find us in <em>Anthem Village.</em></h2>
+        <span class="eyebrow">Location</span>
+        <h2 class="h2">Visit the <em>salon</em></h2>
         <dl class="visit__list">
           <div><dt>Address</dt><dd>{salon.address.street}<br />{salon.address.city}, {salon.address.region} {salon.address.zip}</dd></div>
           {salon.hours.map((h) => <div><dt>Hours</dt><dd>{h.days}<br />{h.time}</dd></div>)}

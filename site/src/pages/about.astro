@@ -3,27 +3,27 @@ import Base from '../layouts/Base.astro';
 import { salon, team } from '../data/salon';
 
 const values = [
-  { t: 'Consultation first', d: 'Every appointment begins with a conversation about your lifestyle, hair goals and how much upkeep you want.' },
-  { t: 'Healthy hair, always', d: 'Premium professional color lines — Wella, Paul Mitchell, Kenra, Goldwell, Redken — plus ammonia-free options.' },
-  { t: 'Always learning', d: 'Our stylists keep up with the latest trends and techniques through ongoing education.' },
+  { t: 'Consultation first', d: 'Every appointment begins with a conversation about your hair goals, lifestyle and maintenance preferences.' },
+  { t: 'Professional products', d: 'We use professional color lines including Wella, Paul Mitchell, Kenra, Goldwell and Redken, with ammonia-free options available.' },
+  { t: 'Ongoing education', d: 'Our stylists train regularly in current techniques and trends.' },
 ];
 ---
 
-<Base title="About Us" description="Meet Beautiology Salon — a Henderson, NV salon led by master colorist and educator Tracey La, with more than 30 years of experience.">
+<Base title="About Us" description="Beautiology Salon is a full-service hair salon in Henderson, NV, led by master colorist and educator Tracey La, who has more than 30 years of experience.">
   <section class="page-hero">
     <div class="wrap">
-      <span class="eyebrow">Our story</span>
-      <h1 class="display">Where creativity meets <em>exceptional care.</em></h1>
-      <p class="lede">Beautiology is our flagship salon in Henderson’s Anthem Village — the place our passion for beautiful, healthy hair began, and the “mother” salon to our growing family.</p>
+      <span class="eyebrow">About us</span>
+      <h1 class="display">About <em>Beautiology</em></h1>
+      <p class="lede">Beautiology is our flagship salon in Henderson’s Anthem Village and the original location in our family of salons.</p>
     </div>
   </section>
 
   <section class="wrap story">
     <img src="/images/shampoo.jpg" alt="Client relaxing during a shampoo" width="1024" height="1024" loading="lazy" data-reveal />
     <div data-reveal>
-      <p class="quote">“My goal has always been to create a welcoming, comfortable space where clients can enjoy exceptional services — and leave feeling confident and inspired.”</p>
-      <p class="quote__by">— {salon.owner}, Owner & Educator</p>
-      <p>Whether you’re here for a precision cut, dimensional color, balayage, blonding, a restorative treatment or a complete transformation, our stylists are committed to bringing your vision to life — in a fun, welcoming atmosphere.</p>
+      <p class="quote">“My goal has always been to create a welcoming, comfortable space where clients receive exceptional service and leave feeling confident.”</p>
+      <p class="quote__by">{salon.owner}, Owner and Educator</p>
+      <p>We offer precision cuts, dimensional color, balayage, blonding, restorative treatments and full color transformations in a relaxed, welcoming setting.</p>
     </div>
   </section>
 
@@ -42,8 +42,8 @@ const values = [
 
   <section class="section team-wrap">
     <div class="wrap">
-      <span class="eyebrow">The team</span>
-      <h2 class="h2">Meet your <em>stylists.</em></h2>
+      <span class="eyebrow">Our team</span>
+      <h2 class="h2">Our <em>stylists</em></h2>
       <div class="people">
         {team.map((m) => (
           <article class="person" data-reveal>

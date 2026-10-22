@@ -4,12 +4,12 @@ import { salon, menu, formatPrice } from '../data/salon';
 import { bookUrl } from '../lib/booking';
 ---
 
-<Base title="Services & Prices" description="Full service menu and prices for Beautiology Salon in Henderson, NV — haircuts, color, highlights, balayage, blonding, Brazilian Blowout and color correction.">
+<Base title="Services & Prices" description="Service menu and pricing for Beautiology Salon in Henderson, NV, including haircuts, color, highlights, balayage, blonding, Brazilian Blowouts and color correction.">
   <section class="page-hero">
     <div class="wrap">
-      <span class="eyebrow">Menu & prices</span>
-      <h1 class="display">Our <em>services.</em></h1>
-      <p class="lede">Prices are starting points. Final pricing depends on length and density, and we’ll always confirm it during your consultation before we begin.</p>
+      <span class="eyebrow">Service menu</span>
+      <h1 class="display">Services and <em>pricing</em></h1>
+      <p class="lede">Listed prices are starting prices and may vary with hair length and density. Your stylist will confirm the final price during your consultation, before any work begins.</p>
     </div>
   </section>
 
@@ -45,8 +45,8 @@ import { bookUrl } from '../lib/booking';
 
     <aside class="note">
       <div>
-        <h2>Not sure what to book?</h2>
-        <p>Start with a free color consultation, or call us at <a href={salon.phoneHref}>{salon.phone}</a>. A {salon.depositPercent}% deposit is required to hold online bookings.</p>
+        <h2>Not sure which service to book?</h2>
+        <p>Book a free color consultation or call us at <a href={salon.phoneHref}>{salon.phone}</a>. Online bookings require a {salon.depositPercent}% deposit.</p>
       </div>
       <a class="btn btn--light" href="/book">Book an appointment</a>
     </aside>
