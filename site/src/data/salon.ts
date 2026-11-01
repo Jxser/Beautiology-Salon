@@ -4,14 +4,13 @@
 export const salon = {
   name: 'Beautiology Salon',
   tagline: 'Full-service hair salon in Henderson, Nevada.',
-  owner: 'Tracey La',
-  // TODO(confirm): the current site lists (725) 404-4247, FullSlate lists 702-483-6660
-  // for the salon and (714) 865-9408 for Tracey directly. Pick one public number.
-  phone: '(725) 404-4247',
-  phoneHref: 'tel:+17254044247',
+  owners: 'Tracey La and Lupita Pandula',
+  phone: '(702) 483-6660',
+  phoneHref: 'tel:+17024836660',
   email: 'support@beautiologynv.com',
   address: {
-    street: '2550 Anthem Village Dr, Suite 170',
+    street: '2550 Anthem Village Dr',
+    suite: 'Suite 170',
     city: 'Henderson',
     region: 'NV',
     zip: '89052',
@@ -33,13 +32,13 @@ export const salon = {
 export const team = [
   {
     name: 'Tracey La',
-    role: 'Owner, Master Colorist and Educator',
-    bio: 'Tracey has more than 30 years of experience and specializes in color correction, balayage and blonding. She also trains and mentors other stylists.',
+    role: 'Co-owner and Stylist',
+    bio: 'Tracey has more than 30 years of experience as a colorist, stylist and national educator. She specializes in color correction, dimensional highlights, balayage and blonding.',
   },
   {
     name: 'Lupita Pandula',
-    role: 'Stylist',
-    bio: 'Lupita specializes in precision cuts, blowouts and everyday color, and starts every service with a consultation.',
+    role: 'Co-owner and Stylist',
+    bio: 'Lupita is a proud alumna of Paul Mitchell The School Las Vegas and has more than 10 years of experience. She specializes in precision cuts, dimensional color and blowouts.',
   },
 ];
 

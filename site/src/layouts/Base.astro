@@ -12,7 +12,7 @@ interface Props {
 
 const {
   title,
-  description = 'Beautiology Salon in Henderson, NV, offers haircuts, color, balayage, blonding and color correction, led by master colorist Tracey La. Book online.',
+  description = 'Beautiology Salon in Henderson, NV, offers haircuts, color, balayage, blonding and color correction, with more than 40 years of combined stylist experience. Book online.',
   hideMobileBar = false,
 } = Astro.props;
 
@@ -30,7 +30,7 @@ const localBusiness = {
   priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: salon.address.street,
+    streetAddress: `${salon.address.street}, ${salon.address.suite}`,
     addressLocality: salon.address.city,
     addressRegion: salon.address.region,
     postalCode: salon.address.zip,

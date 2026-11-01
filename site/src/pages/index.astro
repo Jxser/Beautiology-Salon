@@ -17,14 +17,14 @@ const steps = [
       <div class="hero__copy">
         <span class="eyebrow">Hair Salon in Henderson, NV</span>
         <h1 class="display">Great hair doesn’t happen by chance. It happens <em>by appointment.</em></h1>
-        <p class="lede">Haircuts, color, balayage and color correction by a team led by master colorist {salon.owner}, who brings more than 30 years of experience to every appointment.</p>
+        <p class="lede">Haircuts, color, balayage and color correction from co-owners {salon.owners}, who bring more than 40 years of combined experience to every appointment.</p>
         <div class="hero__actions">
           <a class="btn" href="/book">Book an appointment</a>
           <a class="btn btn--ghost" href="/services">View menu & prices</a>
         </div>
         <ul class="hero__proof">
           <li><strong>★★★★★</strong> 5-star client reviews</li>
-          <li><strong>30+</strong> years of experience</li>
+          <li><strong>40+</strong> years of combined experience</li>
           <li><strong>Free</strong> color consultations</li>
         </ul>
       </div>
@@ -138,7 +138,7 @@ const steps = [
         <span class="eyebrow">Location</span>
         <h2 class="h2">Visit the <em>salon</em></h2>
         <dl class="visit__list">
-          <div><dt>Address</dt><dd>{salon.address.street}<br />{salon.address.city}, {salon.address.region} {salon.address.zip}</dd></div>
+          <div><dt>Address</dt><dd>{salon.address.street}<br />{salon.address.suite}<br />{salon.address.city}, {salon.address.region} {salon.address.zip}</dd></div>
           {salon.hours.map((h) => <div><dt>Hours</dt><dd>{h.days}<br />{h.time}</dd></div>)}
           <div><dt>Phone</dt><dd><a href={salon.phoneHref}>{salon.phone}</a></dd></div>
           <div><dt>Instagram</dt><dd><a href={salon.instagram} target="_blank" rel="noopener">{salon.instagramHandle}</a></dd></div>
